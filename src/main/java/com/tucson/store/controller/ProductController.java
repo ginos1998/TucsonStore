@@ -2,6 +2,7 @@ package com.tucson.store.controller;
 
 import com.tucson.store.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.tucson.store.service.ProductService;
 
@@ -14,9 +15,16 @@ public class ProductController {
   @Autowired
   private ProductService service;
 
-  @GetMapping("/private")
-  public String welcome() {
-    return "Just admin or users can read this message.";
+  @GetMapping("/adminPage")
+  @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+  public String adminPage() {
+    return "Just admin can read this message.";
+  }
+
+  @GetMapping("/userPage")
+  @PreAuthorize("hasAuthority('ROLE_USER')")
+  public String userPage() {
+    return "Just user can read this message.";
   }
 
   @GetMapping("/all")
