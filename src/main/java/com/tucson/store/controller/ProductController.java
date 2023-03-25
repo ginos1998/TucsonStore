@@ -1,5 +1,6 @@
 package com.tucson.store.controller;
 
+import com.tucson.store.entity.User;
 import com.tucson.store.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,5 +38,9 @@ public class ProductController {
     return service.getProduct(id);
   }
 
+  @PostMapping("/new")
+  public String addNewUser(@RequestBody User userInfo){
+    return service.addUser(userInfo);
+  }
 }
 
