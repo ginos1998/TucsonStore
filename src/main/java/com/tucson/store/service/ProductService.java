@@ -1,7 +1,11 @@
 package com.tucson.store.service;
 
+import com.tucson.store.entity.User;
+import com.tucson.store.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import com.tucson.store.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +17,23 @@ import java.util.stream.IntStream;
 public class ProductService {
 
   List<Product> productList = null;
+
+  @Autowired
+  private UserRepository userRepository;
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
+  /**
+   * Add a user using, for now, postman
+   * @param userInfo User class object to add.
+   * @return message.
+   */
+  public String addUser(User userInfo) {
+    userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+    userRepository.save(userInfo);
+    return "user added to system ";
+  }
 
   /**
    * Se generan 100 productos con valores aleatorios.
