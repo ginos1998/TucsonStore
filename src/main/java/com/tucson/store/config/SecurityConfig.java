@@ -20,17 +20,18 @@ public class SecurityConfig {
 
   @Bean
   public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-    UserDetails admin = User.withUsername("gino")
-        .password(encoder.encode("demo"))
-        .roles("ADMIN")
-        .build();
-
-    UserDetails user = User.withUsername("luis")
-        .password(encoder.encode("demo"))
-        .roles("USER")
-        .build();
-
-    return new InMemoryUserDetailsManager(admin, user);
+//    UserDetails admin = User.withUsername("gino")
+//        .password(encoder.encode("demo"))
+//        .roles("ADMIN")
+//        .build();
+//
+//    UserDetails user = User.withUsername("luis")
+//        .password(encoder.encode("demo"))
+//        .roles("USER")
+//        .build();
+//
+//    return new InMemoryUserDetailsManager(admin, user);
+    return new UserLoginDetailsService();
   }
 
   /**
