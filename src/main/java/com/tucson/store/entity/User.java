@@ -13,5 +13,6 @@ public class User {
   private String name;
   private String email;
   private String password;
-  private String roles;
+  @Column(insertable = false) // when user register, this field is null so to prevent exception I use this label
+  private String roles;       // so in this way, mySql insert the default value
 }

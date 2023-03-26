@@ -45,7 +45,7 @@ public class SecurityConfig {
                       "/css/**", "/js/**", "/img/**", "/scss/**", "/vendor/**").permitAll()
                 .and()
                   .authorizeHttpRequests()
-                  .requestMatchers("/adminPage")
+                  .requestMatchers("/", "/index", "/adminPage")
                   .authenticated()
                 .and()
                   .formLogin().loginPage("/login").permitAll()

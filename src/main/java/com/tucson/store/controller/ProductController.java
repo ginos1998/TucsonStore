@@ -5,7 +5,6 @@ import com.tucson.store.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.tucson.store.service.ProductService;
 
@@ -21,13 +20,13 @@ public class ProductController {
   @PreAuthorize("hasAuthority('ROLE_ADMIN')")
   @GetMapping("/adminPage")
   public String adminPage() {
-    return "index";
+    return "404";
   }
 
   @GetMapping("/userPage")
   @PreAuthorize("hasAuthority('ROLE_USER')")
   public String userPage() {
-    return "";
+    return "404";
   }
 
   @GetMapping("/all")
