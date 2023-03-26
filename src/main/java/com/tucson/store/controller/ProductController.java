@@ -4,28 +4,30 @@ import com.tucson.store.entity.User;
 import com.tucson.store.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.tucson.store.service.ProductService;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/products")
+@Controller
 public class ProductController {
 
   @Autowired
   private ProductService service;
 
-  @GetMapping("/adminPage")
+
   @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+  @GetMapping("/adminPage")
   public String adminPage() {
-    return "Just admin can read this message.";
+    return "index";
   }
 
   @GetMapping("/userPage")
   @PreAuthorize("hasAuthority('ROLE_USER')")
   public String userPage() {
-    return "Just user can read this message.";
+    return "";
   }
 
   @GetMapping("/all")

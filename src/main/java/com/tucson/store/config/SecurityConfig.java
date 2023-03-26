@@ -17,6 +17,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+  /**
+   * Authentication login.
+   * @return UserLoginDetailsService object.
+   */
   @Bean
   public UserDetailsService userDetailsService() {
     return new UserLoginDetailsService();
@@ -34,15 +38,17 @@ public class SecurityConfig {
    */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http.csrf().disable()
+    return http.csrf()
+                .disable()
                   .authorizeHttpRequests()
-                  .requestMatchers("/home/welcome", "/products/new").permitAll()
+                  .requestMatchers("/home/welcome", "/products/new", "/register", "/registerUser",
+                      "/css/**", "/js/**", "/img/**", "/scss/**", "/vendor/**").permitAll()
                 .and()
                   .authorizeHttpRequests()
-                  .requestMatchers("/products/**")
+                  .requestMatchers("/adminPage")
                   .authenticated()
                 .and()
-                  .formLogin()
+                  .formLogin().loginPage("/login").permitAll()
                 .and()
                   .build();
   }

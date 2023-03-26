@@ -31,8 +31,13 @@ public class ProductService {
    */
   public String addUser(User userInfo) {
     userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+    userInfo.setRoles(validateRole(userInfo));
     userRepository.save(userInfo);
     return "user added to system ";
+  }
+
+  private String validateRole(User user) {
+    return (user.getRoles() == null ? "ROLE_USER" : user.getRoles());
   }
 
   /**
