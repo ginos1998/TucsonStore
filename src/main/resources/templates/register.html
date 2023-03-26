@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Register</title>
+    <title th:text="#{registrar}"></title>
 
     <!-- Custom fonts for this template-->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -34,35 +34,35 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4" th:text="#{crear_cuenta}"></h1>
                             </div>
                             <form class="user" th:action="@{/registerUser}" method="post" th:object="${user}">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <label for="name">Name:</label>
+                                        <label for="name"></label>
                                         <input type="text" class="form-control form-control-user" id="name"
-                                               name="name" th:field="*{name}" placeholder="name"/>
+                                               name="name" th:field="*{name}" th:placeholder="#{nombre}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Email:</label>
+                                    <label for="email"></label>
                                     <input type="email" name="email" class="form-control form-control-user" id="email"
-                                           th:field="*{email}" placeholder="Email Address"/>
+                                           th:field="*{email}" th:placeholder="#{email}"/>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
                                                name="password" th:field="*{password}"
-                                               id="examplePassword" placeholder="Password"/>
+                                               id="examplePassword" th:placeholder="#{contrasena}"/>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password"/>
+                                            id="exampleRepeatPassword" th:placeholder="#{repetir_contraseña}"/>
                                     </div>
                                 </div>
-                                <input type="submit" name="registerUser" value="Register Account" class="btn btn-primary btn-user btn-block"/>
+                                <input type="submit" name="registerUser" th:value="#{registrarme}" class="btn btn-primary btn-user btn-block"/>
                                 <div class="text-center">
-                                    <a class="small" th:href="@{/login}">Already have an account? Login!</a>
+                                    <a class="small" th:href="@{/login}" th:text="#{tenes_cuenta_ingresa}"></a>
                                 </div>
                             </form>
                             <hr>

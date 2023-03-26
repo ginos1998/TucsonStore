@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="es"
        xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Login</title>
+    <title th:text="#{login_title}"></title>
 
     <!-- Custom fonts for this template-->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -36,24 +36,24 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Holis, como va?</h1>
+                                        <h1 class="h4 text-gray-900 mb-4" th:text="#{buenas_como_va}"></h1>
                                     </div>
                                     <form method="post" th:action="@{/login}" class="user">
                                         <div class="form-group">
-                                            <label for="username">Username: </label>
+                                            <label for="username"></label>
                                             <input type="text" name="username" class="form-control form-control-user"
                                                 id="username" aria-describedby="emailHelp"
-                                                placeholder="username..">
+                                                th:placeholder="#{usuario}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="password">Password: </label>
+                                            <label for="password"></label>
                                             <input type="password" class="form-control form-control-user"
-                                                   name="password" id="password" placeholder="Password">
+                                                   name="password" id="password" th:placeholder="#{contrasena}">
                                         </div>
-                                        <input type="submit" value="Login" class="btn btn-primary btn-user btn-block"/>
+                                        <input type="submit" th:value="#{ingresar}" class="btn btn-primary btn-user btn-block"/>
                                         <hr>
                                         <div class="text-center">
-                                            <a class="small" th:href="@{/register}">Create an Account!</a>
+                                            <a class="small" th:text="#{crear_cuenta}" th:href="@{/register}"></a>
                                         </div>
                                     </form>
                                     <hr>
