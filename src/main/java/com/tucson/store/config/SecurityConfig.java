@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -51,17 +52,24 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     return http.csrf()
-                .disable()
-                  .authorizeHttpRequests()
-                  .requestMatchers(publicRequestMatchers).permitAll()
-                .and()
-                  .authorizeHttpRequests()
-                  .requestMatchers(privateRequestMatchers)
-                  .authenticated()
-                .and()
-                  .formLogin().loginPage("/login").permitAll()
-                .and()
-                  .build();
+        .disable()
+        .authorizeHttpRequests()
+          .requestMatchers(publicRequestMatchers).permitAll()
+        .and()
+        .authorizeHttpRequests()
+          .requestMatchers(privateRequestMatchers)
+          .authenticated()
+        .and()
+        .formLogin()
+          .loginPage("/login")
+          .permitAll()
+        .and()
+        .logout()
+          .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+          .logoutSuccessUrl("/login")
+        .and()
+
+        .build();
   }
 
   /**
