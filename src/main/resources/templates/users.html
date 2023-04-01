@@ -1,5 +1,7 @@
  <!DOCTYPE html>
-<html lang="en">
+ <html lang="en"
+       xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -381,19 +383,16 @@
                                         <tr>
                                             <th>Id Usuario</th>
                                             <th>Nombre</th>
-                                            <th>Apellido</th>
                                             <th>Email</th>
-                                            <th>Telefono</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Gino</td>
-                                            <td>Siampichetti</td>
-                                            <td>ginos@gmail.com</td>
-                                            <td>3571987654</td>
+                                        <tr th:each="user: ${users}">
+                                            <td th:text="${user.idUser}"></td>
+                                            <td th:text="${user.name}"></td>
+                                            <td th:text="${user.email}"></td>
+                                            <td th:text="${user.roles}"></td>
                                             <td>
                                                 <a href="#" class="btn btn-danger btn-circle btn-sm">
                                                     <i class="fas fa-trash"></i>
