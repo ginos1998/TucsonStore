@@ -1,5 +1,6 @@
 package com.tucson.store.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -15,8 +16,19 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@Slf4j
 public class SecurityConfig {
 
+  private final String[] publicRequestMatchers = new String[]{
+       // resources
+      "/css/**", "/js/**", "/img/**", "/scss/**", "/vendor/**",
+      // content
+      "/register", "/registerUser",
+  };
+
+  private final String [] privateRequestMatchers = new String[] {
+      "/", "/index", "/adminPage"
+  };
   /**
    * Authentication login.
    * @return UserLoginDetailsService object.
@@ -41,11 +53,10 @@ public class SecurityConfig {
     return http.csrf()
                 .disable()
                   .authorizeHttpRequests()
-                  .requestMatchers("/home/welcome", "/products/new", "/register", "/registerUser",
-                      "/css/**", "/js/**", "/img/**", "/scss/**", "/vendor/**").permitAll()
+                  .requestMatchers(publicRequestMatchers).permitAll()
                 .and()
                   .authorizeHttpRequests()
-                  .requestMatchers("/", "/index", "/adminPage")
+                  .requestMatchers(privateRequestMatchers)
                   .authenticated()
                 .and()
                   .formLogin().loginPage("/login").permitAll()
