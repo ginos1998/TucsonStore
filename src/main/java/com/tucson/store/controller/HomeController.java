@@ -17,4 +17,10 @@ public class HomeController {
   public String indexPage(@AuthenticationPrincipal UserLoginUserDetails user) {
     return "index";
   }
+
+  @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+  @GetMapping("/adminPage")
+  public String adminPage() {
+    return "users";
+  }
 }

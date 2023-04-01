@@ -16,13 +16,6 @@ public class ProductController {
   @Autowired
   private ProductService service;
 
-
-  @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-  @GetMapping("/adminPage")
-  public String adminPage() {
-    return "404";
-  }
-
   @GetMapping("/userPage")
   @PreAuthorize("hasAuthority('ROLE_USER')")
   public String userPage() {
