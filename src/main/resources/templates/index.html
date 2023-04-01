@@ -51,7 +51,7 @@
             </li>
             <!-- AdminPage -->
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/adminPage}">
+                <a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/adminPage}">
                     <i class="fas fa-fw fa-user-tie"></i>
                     <span>Admin Page</span>
                 </a>
