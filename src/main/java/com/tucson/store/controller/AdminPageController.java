@@ -23,4 +23,10 @@ public class AdminPageController {
     model.addAttribute("users", users);
     return "users";
   }
+
+  @GetMapping("/adminPage/deleteUser")
+  public String deleteUser(User user) {
+    userService.deleteUser(user);
+    return "redirect:/adminPage";
+  }
 }
