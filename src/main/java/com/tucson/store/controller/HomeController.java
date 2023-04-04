@@ -17,4 +17,5 @@ public class HomeController {
   public String indexPage(@AuthenticationPrincipal UserLoginUserDetails user) {
     return "index";
   }
+
 }

@@ -7581,6 +7581,14 @@ button.bg-dark:focus {
   box-shadow: none !important;
 }
 
+.w-10px {
+  width: 10px!important;
+}
+
+.w-40px {
+  width: 40px!important;
+}
+
 .w-25 {
   width: 25% !important;
 }
@@ -11278,4 +11286,8 @@ footer.sticky-footer .copyright {
 
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
+}
+
+.W10px {
+  width: 10px!important;
 }

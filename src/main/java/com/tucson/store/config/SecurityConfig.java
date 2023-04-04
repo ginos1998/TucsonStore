@@ -28,7 +28,7 @@ public class SecurityConfig {
   };
 
   private final String [] privateRequestMatchers = new String[] {
-      "/", "/index", "/adminPage"
+      "/", "/index", "/adminPage/**"
   };
   /**
    * Authentication login.
