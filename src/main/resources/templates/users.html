@@ -399,7 +399,11 @@
                                                     </button>
                                                     <div class="dropdown-menu animated--fade-in"
                                                          aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" data-toggle="modal" data-target="#modal-warning"
+                                                        <!-- edit user button -->
+                                                        <a class="dropdown-item" th:href="@{/adminPage/editUser(idUser=${user.idUser})}">
+                                                            Editar</a>
+                                                        <!-- delete user button -->
+                                                        <a class="dropdown-item" data-toggle="modal" data-target="#confirmDeleteUser"
                                                            th:attr="data-target='#confirmDeleteUser'+${user.idUser}">
                                                            Eliminar</a>
                                                     </div>
@@ -410,6 +414,7 @@
                                             <td th:text="${user.email}"></td>
                                             <td th:text="${user.roles}"></td>
 
+                                            <!-- Modal: on delete user-->
                                             <div class="modal fade" th:id="confirmDeleteUser+${user.idUser}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteUserLabel"
                                                  aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
