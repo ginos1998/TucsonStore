@@ -14,14 +14,26 @@ public class UserLoginUserDetails implements UserDetails {
 
   private String name;
   private String password;
+  private boolean accountNonExpired;
+  private boolean accountNonLocked;
+  private boolean credentialsNonExpired;
+  private boolean enabled;
   private List<GrantedAuthority> authorityList;
 
   public UserLoginUserDetails(User user) {
+    mapUserData(user);
+    authorityList = Arrays.stream(user.getRoles().split(","))
+        .map(SimpleGrantedAuthority::new)
+        .collect(Collectors.toList());
+  }
+
+  private void mapUserData(User user) {
     name = user.getName();
     password = user.getPassword();
-    authorityList= Arrays.stream(user.getRoles().split(","))
-                          .map(SimpleGrantedAuthority::new)
-                          .collect(Collectors.toList());
+    accountNonExpired = user.isAccountNonExpired();
+    accountNonLocked = user.isAccountNonLocked();
+    credentialsNonExpired = user.isCredentialsNonExpired();
+    enabled = user.isEnabled();
   }
 
   @Override
@@ -41,21 +53,21 @@ public class UserLoginUserDetails implements UserDetails {
 
   @Override
   public boolean isAccountNonExpired() {
-    return true;
+    return accountNonExpired;
   }
 
   @Override
   public boolean isAccountNonLocked() {
-    return true;
+    return accountNonLocked;
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
-    return true;
+    return credentialsNonExpired;
   }
 
   @Override
   public boolean isEnabled() {
-    return true;
+    return enabled;
   }
 }
