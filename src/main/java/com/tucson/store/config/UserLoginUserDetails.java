@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserLoginUserDetails implements UserDetails {
-
-  private String name;
+  private String username;
   private String password;
   private boolean accountNonExpired;
   private boolean accountNonLocked;
@@ -28,7 +27,7 @@ public class UserLoginUserDetails implements UserDetails {
   }
 
   private void mapUserData(User user) {
-    name = user.getName();
+    username = user.getUsername();
     password = user.getPassword();
     accountNonExpired = user.isAccountNonExpired();
     accountNonLocked = user.isAccountNonLocked();
@@ -48,7 +47,7 @@ public class UserLoginUserDetails implements UserDetails {
 
   @Override
   public String getUsername() {
-    return name;
+    return username;
   }
 
   @Override

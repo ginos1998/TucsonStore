@@ -11,18 +11,18 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int idUser;
-  private String name;
+  private String username;
   private String email;
   private String password;
   @Column(insertable = false) // when user register, this field is null so to prevent exception I use this label
   private String roles;       // so in this way, mySql insert the default value
-  @Column(name = "account_non_expired")
+  @Column(name = "account_non_expired", insertable = false)
   private Character accountNonExpired;
-  @Column(name = "account_non_locked")
+  @Column(name = "account_non_locked", insertable = false)
   private Character accountNonLocked;
-  @Column(name = "credentials_non_expired")
+  @Column(name = "credentials_non_expired", insertable = false)
   private Character credentialsNonExpired;
-  @Column(name = "enabled")
+  @Column(name = "enabled", insertable = false)
   private Character enabled;
 
   // boolean methods needed
