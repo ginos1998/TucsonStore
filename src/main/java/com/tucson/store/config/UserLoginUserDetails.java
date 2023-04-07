@@ -29,10 +29,10 @@ public class UserLoginUserDetails implements UserDetails {
   private void mapUserData(User user) {
     username = user.getUsername();
     password = user.getPassword();
-    accountNonExpired = user.isAccountNonExpired();
-    accountNonLocked = user.isAccountNonLocked();
-    credentialsNonExpired = user.isCredentialsNonExpired();
-    enabled = user.isEnabled();
+    accountNonExpired = user.isAccountNonExpiredBoolean();
+    accountNonLocked = user.isAccountNonLockedBoolean();
+    credentialsNonExpired = user.isCredentialsNonExpiredBoolean();
+    enabled = user.isEnabledBoolean();
   }
 
   @Override

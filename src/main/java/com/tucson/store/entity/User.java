@@ -6,10 +6,12 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "user")
 public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id_user")
   private int idUser;
   private String username;
   private String email;
@@ -26,19 +28,19 @@ public class User {
   private Character enabled;
 
   // boolean methods needed
-  public boolean isAccountNonExpired() {
+  public boolean isAccountNonExpiredBoolean() {
     return accountNonExpired.equals(Constants.CHAR_S);
   }
 
-  public boolean isAccountNonLocked() {
+  public boolean isAccountNonLockedBoolean() {
     return accountNonLocked.equals(Constants.CHAR_S);
   }
 
-  public boolean isCredentialsNonExpired () {
+  public boolean isCredentialsNonExpiredBoolean () {
     return credentialsNonExpired.equals(Constants.CHAR_S);
   }
 
-  public boolean isEnabled() {
+  public boolean isEnabledBoolean() {
     return enabled.equals(Constants.CHAR_S);
   }
 }
