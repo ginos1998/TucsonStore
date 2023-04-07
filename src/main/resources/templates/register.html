@@ -39,9 +39,9 @@
                             <form class="user" th:action="@{/registerUser}" method="post" th:object="${user}">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <label for="name"></label>
-                                        <input type="text" class="form-control form-control-user" id="name"
-                                               name="name" th:field="*{name}" th:placeholder="#{nombre}"/>
+                                        <label for="username"></label>
+                                        <input type="text" class="form-control form-control-user" id="username"
+                                               name="username" th:field="*{username}" th:placeholder="#{username}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -11,17 +11,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserLoginUserDetails implements UserDetails {
-
-  private String name;
+  private String username;
   private String password;
+  private boolean accountNonExpired;
+  private boolean accountNonLocked;
+  private boolean credentialsNonExpired;
+  private boolean enabled;
   private List<GrantedAuthority> authorityList;
 
   public UserLoginUserDetails(User user) {
-    name = user.getName();
+    mapUserData(user);
+    authorityList = Arrays.stream(user.getRoles().split(","))
+        .map(SimpleGrantedAuthority::new)
+        .collect(Collectors.toList());
+  }
+
+  private void mapUserData(User user) {
+    username = user.getUsername();
     password = user.getPassword();
-    authorityList= Arrays.stream(user.getRoles().split(","))
-                          .map(SimpleGrantedAuthority::new)
-                          .collect(Collectors.toList());
+    accountNonExpired = user.isAccountNonExpiredBoolean();
+    accountNonLocked = user.isAccountNonLockedBoolean();
+    credentialsNonExpired = user.isCredentialsNonExpiredBoolean();
+    enabled = user.isEnabledBoolean();
   }
 
   @Override
@@ -36,26 +47,26 @@ public class UserLoginUserDetails implements UserDetails {
 
   @Override
   public String getUsername() {
-    return name;
+    return username;
   }
 
   @Override
   public boolean isAccountNonExpired() {
-    return true;
+    return accountNonExpired;
   }
 
   @Override
   public boolean isAccountNonLocked() {
-    return true;
+    return accountNonLocked;
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
-    return true;
+    return credentialsNonExpired;
   }
 
   @Override
   public boolean isEnabled() {
-    return true;
+    return enabled;
   }
 }

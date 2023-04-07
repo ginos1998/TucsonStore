@@ -48,12 +48,16 @@
                     <input type="hidden" name="idUser" th:field="*{idUser}">
                     <input type="hidden" name="password" th:field="*{password}">
                     <input type="hidden" name="role" th:field="*{roles}">
+                    <input type="hidden" name="accountNonExpired" th:field="*{accountNonExpired}">
+                    <input type="hidden" name="accountNonLocked" th:field="*{accountNonLocked}">
+                    <input type="hidden" name="credentialsNonExpired" th:field="*{credentialsNonExpired}">
+                    <input type="hidden" name="enabled" th:field="*{enabled}">
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <label for="name" th:text="#{nombre}"></label>
-                            <input type="text" class="form-control form-control-user" id="name"
-                                   name="name" th:field="*{name}" th:placeholder="#{nombre}"/>
-                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                            <label for="username" th:text="#{username}"></label>
+                            <input type="text" class="form-control form-control-user" id="username"
+                                   name="username" th:field="*{username}" th:placeholder="#{nombre}"/>
+                            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
                         </div>
                     </div>
                     <div class="form-group row">
