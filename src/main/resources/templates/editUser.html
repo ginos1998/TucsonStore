@@ -48,6 +48,10 @@
                     <input type="hidden" name="idUser" th:field="*{idUser}">
                     <input type="hidden" name="password" th:field="*{password}">
                     <input type="hidden" name="role" th:field="*{roles}">
+                    <input type="hidden" name="accountNonExpired" th:field="*{accountNonExpired}">
+                    <input type="hidden" name="accountNonLocked" th:field="*{accountNonLocked}">
+                    <input type="hidden" name="credentialsNonExpired" th:field="*{credentialsNonExpired}">
+                    <input type="hidden" name="enabled" th:field="*{enabled}">
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="username" th:text="#{username}"></label>
