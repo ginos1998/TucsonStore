@@ -16,7 +16,12 @@ public class Socios {
   private String dni;
   private String domicilio;
 
-  @ManyToOne
+  /**
+   * @OneToOne un Socio debe estar relacionado con un User.
+   * @JoinColumn indica que la columna "id_user" de la tabla "socio" es la fk
+   *             que se relaciona con la primary key "id_user" de la tabla "user".
+   */
+  @OneToOne
   @JoinColumn(name = "id_user", nullable = false)
   private User user;
 

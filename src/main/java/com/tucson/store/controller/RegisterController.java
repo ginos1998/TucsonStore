@@ -1,6 +1,8 @@
 package com.tucson.store.controller;
 
 import com.tucson.store.delegators.UserSociosDelegator;
+import com.tucson.store.entity.Socios;
+import com.tucson.store.entity.User;
 import com.tucson.store.service.interfaces.IntSociosServive;
 import com.tucson.store.service.interfaces.IntUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,17 @@ public class RegisterController {
 
   @PostMapping("/registerUser")
   public String registerUser(@ModelAttribute("usd") UserSociosDelegator usd) {
-    userService.addUser(usd.getUser());
-    sociosService.saveSocio(usd.getSocios());
+    validateNewUser(usd.getUser());
+    validateNewSocio(usd.getSocios(), usd.getUser());
     return "redirect:/login";
+  }
+
+  private void validateNewUser(User user) {
+    userService.addUser(user);
+  }
+
+  private void validateNewSocio(Socios socios, User user) {
+    socios.setUser(user);
+    sociosService.saveSocio(socios);
   }
 }
