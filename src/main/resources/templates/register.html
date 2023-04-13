@@ -36,23 +36,47 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4" th:text="#{crear_cuenta}"></h1>
                             </div>
-                            <form class="user" th:action="@{/registerUser}" method="post" th:object="${user}">
+                            <form class="usd" th:action="@{/registerUser}" method="post" th:object="${usd}">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label for="nombre"></label>
+                                        <input type="text" class="form-control form-control-user" id="nombre"
+                                               name="nombre" th:field="*{socios.nombre}" th:placeholder="#{nombre}"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="apellido"></label>
+                                        <input type="text" name="apellido" class="form-control form-control-user" id="apellido"
+                                               th:field="*{socios.apellido}" th:placeholder="#{apellido}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label for="dni"></label>
+                                        <input type="text" class="form-control form-control-user" id="dni"
+                                               name="dni" th:field="*{socios.dni}" th:placeholder="#{dni}"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="domicilio"></label>
+                                        <input type="text" name="domicilio" class="form-control form-control-user" id="domicilio"
+                                               th:field="*{socios.domicilio}" th:placeholder="#{domicilio}"/>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label for="username"></label>
                                         <input type="text" class="form-control form-control-user" id="username"
-                                               name="username" th:field="*{username}" th:placeholder="#{username}"/>
+                                               name="username" th:field="*{user.username}" th:placeholder="#{username}"/>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email"></label>
-                                    <input type="email" name="email" class="form-control form-control-user" id="email"
-                                           th:field="*{email}" th:placeholder="#{email}"/>
+                                    <div class="col-sm-6">
+                                        <label for="email"></label>
+                                        <input type="email" name="email" class="form-control form-control-user" id="email"
+                                               th:field="*{user.email}" th:placeholder="#{email}"/>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                               name="password" th:field="*{password}"
+                                               name="password" th:field="*{user.password}"
                                                id="examplePassword" th:placeholder="#{contrasena}"/>
                                     </div>
                                     <div class="col-sm-6">

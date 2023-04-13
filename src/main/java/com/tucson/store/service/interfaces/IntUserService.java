@@ -8,6 +8,7 @@ public interface IntUserService {
   // CRUD
   List<User> listAllUsers();
   void saveUser(User user);
+  void addUser(User user);
   void deleteUser(User user);
   User findUser(User user);
 

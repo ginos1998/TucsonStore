@@ -66,12 +66,13 @@
                                             <th></th>
                                             <th class="w-40px">Id</th>
                                             <th>Nombre</th>
-                                            <th>Email</th>
-                                            <th>Acciones</th>
+                                            <th>Apellido</th>
+                                            <th>DNI</th>
+                                            <th>email</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="user: ${users}">
+                                        <tr th:each="enabledSocio: ${enabledSocios}">
                                             <td class="w-10px">
                                                 <div class="dropdown mb-4">
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
@@ -82,22 +83,22 @@
                                                     <div class="dropdown-menu animated--fade-in"
                                                          aria-labelledby="dropdownMenuButton">
                                                         <!-- edit user button -->
-                                                        <a class="dropdown-item" th:href="@{/adminPage/editUser(idUser=${user.idUser})}">
+                                                        <a class="dropdown-item" th:href="@{/adminPage/editUser(idUser=${enabledSocio.idUser})}">
                                                             Editar</a>
                                                         <!-- delete user button -->
                                                         <a class="dropdown-item" data-toggle="modal" data-target="#confirmDeleteUser"
-                                                           th:attr="data-target='#confirmDeleteUser'+${user.idUser}">
+                                                           th:attr="data-target='#confirmDeleteUser'+${enabledSocio.idUser}">
                                                            Eliminar</a>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td th:text="${user.idUser}"></td>
-                                            <td th:text="${user.username}"></td>
-                                            <td th:text="${user.email}"></td>
-                                            <td th:text="${user.roles}"></td>
-
+                                            <td th:text="${enabledSocio.idUser}"></td>
+                                            <td th:text="${enabledSocio.nombre}"></td>
+                                            <td th:text="${enabledSocio.apellido}"></td>
+                                            <td th:text="${enabledSocio.dni}"></td>
+                                            <td th:text="${enabledSocio.email}"></td>
                                             <!-- Modal: on delete user-->
-                                            <div class="modal fade" th:id="confirmDeleteUser+${user.idUser}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteUserLabel"
+                                            <div class="modal fade" th:id="confirmDeleteUser+${enabledSocio.idUser}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteUserLabel"
                                                  aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
@@ -108,11 +109,11 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <h3 th:text="'Seguro que quieres eliminar a ' + ${user.username} + '?'"></h3>
+                                                            <h3 th:text="'Seguro que quieres eliminar a ' + ${enabledSocio.nombre} + ${enabledSocio.apellido} + '?'"></h3>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                                                            <a class="btn btn-primary" th:href="@{/adminPage/deleteUser(idUser=${user.idUser})}">
+                                                            <a class="btn btn-primary" th:href="@{/adminPage/deleteUser(idUser=${enabledSocio.idUser})}">
                                                                 Eliminar</a>
                                                         </div>
                                                     </div>
