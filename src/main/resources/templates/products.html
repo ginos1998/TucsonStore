@@ -50,7 +50,7 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800" th:text="#{productos}"></h1>
                     <p class="mb-4" th:text="#{p_tabla_usuarios}"></p>
-
+                    <button type="button" class="btn btn-primary">Agregar</button>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -69,11 +69,10 @@
                                             <th th:text="#{rubro}"></th>
                                             <th th:text="#{subrubro}"></th>
                                             <th th:text="#{ctd_disp}"></th>
-                                            <th th:text="#{color}"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="enabledSocio: ${enabledSocios}">
+                                        <tr th:each="product: ${products}">
                                             <td class="w-10px">
                                                 <div class="dropdown mb-4">
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
@@ -81,46 +80,48 @@
                                                             aria-expanded="false">
                                                         <i class="fas fa-fw fa-cog"></i>
                                                     </button>
-                                                    <div class="dropdown-menu animated--fade-in"
-                                                         aria-labelledby="dropdownMenuButton">
-                                                        <!-- edit user button -->
-                                                        <a class="dropdown-item" th:text="#{editar}"
-                                                           th:href="@{/adminPage/editUser(idUser=${enabledSocio.idUser})}"></a>
-                                                        <!-- delete user button -->
-                                                        <a class="dropdown-item" data-toggle="modal" data-target="#confirmDeleteUser"
-                                                           th:attr="data-target='#confirmDeleteUser'+${enabledSocio.idUser}"
-                                                           th:text="#{eliminar}"></a>
-                                                    </div>
+<!--                                                    <div class="dropdown-menu animated&#45;&#45;fade-in"-->
+<!--                                                         aria-labelledby="dropdownMenuButton">-->
+<!--                                                        &lt;!&ndash; edit user button &ndash;&gt;-->
+<!--                                                        <a class="dropdown-item" th:text="#{editar}"-->
+<!--                                                           th:href="@{/adminPage/editUser(idUser=${product.user.idUser})}"></a>-->
+<!--                                                        &lt;!&ndash; delete user button &ndash;&gt;-->
+<!--                                                        <a class="dropdown-item" data-toggle="modal" data-target="#confirmDeleteUser"-->
+<!--                                                           th:attr="data-target='#confirmDeleteUser'+${product.user.idUser}"-->
+<!--                                                           th:text="#{eliminar}"></a>-->
+<!--                                                    </div>-->
                                                 </div>
                                             </td>
-                                            <td th:text="${enabledSocio.idUser}"></td>
-                                            <td th:text="${enabledSocio.nombre}"></td>
-                                            <td th:text="${enabledSocio.apellido}"></td>
-                                            <td th:text="${enabledSocio.dni}"></td>
-                                            <td th:text="${enabledSocio.email}"></td>
+                                            <td th:text="${product.idProduct}"></td>
+                                            <td th:text="${product.producto}"></td>
+                                            <td th:text="${product.precio}"></td>
+                                            <td th:text="${product.marca}"></td>
+                                            <td th:text="${product.rubro}"></td>
+                                            <td th:text="${product.subrubro}"></td>
+                                            <td th:text="${product.ctdDisponible}"></td>
                                             <!-- Modal: on delete user-->
-                                            <div class="modal fade" th:id="confirmDeleteUser+${enabledSocio.idUser}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteUserLabel"
-                                                 aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="confirmDeleteUserLabel" th:text="#{eliminar_usuario}"></h5>
-                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <h3 th:text="#{seguro_quieres_eliminar_a}"></h3>
-                                                            <h3 th:text="' '+ ${enabledSocio.nombre} + ${enabledSocio.apellido} + '?'"></h3>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal" th:text="#{cancelar}"></button>
-                                                            <a class="btn btn-primary" th:text="#{eliminar}"
-                                                               th:href="@{/adminPage/deleteUser(idUser=${enabledSocio.idUser})}"></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+<!--                                            <div class="modal fade" th:id="confirmDeleteUser+${product.user.idUser}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteUserLabel"-->
+<!--                                                 aria-hidden="true">-->
+<!--                                                <div class="modal-dialog" role="document">-->
+<!--                                                    <div class="modal-content">-->
+<!--                                                        <div class="modal-header">-->
+<!--                                                            <h5 class="modal-title" id="confirmDeleteUserLabel" th:text="#{eliminar_usuario}"></h5>-->
+<!--                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">-->
+<!--                                                                <span aria-hidden="true">×</span>-->
+<!--                                                            </button>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="modal-body">-->
+<!--                                                            <h3 th:text="#{seguro_quieres_eliminar_a}"></h3>-->
+<!--                                                            <h3 th:text="' '+ ${product.producto} + '?'"></h3>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="modal-footer">-->
+<!--                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal" th:text="#{cancelar}"></button>-->
+<!--                                                            <a class="btn btn-primary" th:text="#{eliminar}"-->
+<!--                                                               th:href="@{/adminPage/deleteUser(idUser=${enabledSocio.idUser})}"></a>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
                                         </tr>
                                     </tbody>
                                 </table>

@@ -3,8 +3,11 @@ create table rubro
 (
     id_rubro   int auto_increment
         primary key,
+    id_user    int              not null,
     rubro      varchar(40)      not null,
-    habilitado char default 'S' null
+    habilitado char default 'S' null,
+    constraint rubro_user_id_user_fk
+        foreign key (id_user) references user (id_user)
 );
 
 -- auto-generated definition
@@ -12,9 +15,13 @@ create table marca
 (
     id_marca   int auto_increment
         primary key,
+    id_user    int              not null,
     marca      varchar(40)      not null,
-    habilitada char default 'S' null
+    habilitada char default 'S' null,
+    constraint marca_user_null_fk
+        foreign key (id_user) references user (id_user)
 );
+
 
 -- auto-generated definition
 create table subrubro
