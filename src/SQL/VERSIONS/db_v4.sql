@@ -58,3 +58,10 @@ create table producto
         foreign key (id_user) references user (id_user)
 );
 
+alter table producto
+    modify habilitado char default 'S' not null;
+
+alter table producto
+    add descripcion varchar(255) null;
+
+

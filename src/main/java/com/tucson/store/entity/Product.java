@@ -2,7 +2,6 @@ package com.tucson.store.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.Formula;
 
 @Entity(name = "producto")
 @Data
@@ -23,7 +22,9 @@ public class Product {
   private double precio;
   @Column(name = "ctd_diponible")
   private int ctdDisponible;
+  @Column(insertable = false) // use default value: 'S'
   private Character habilitado;
+  private String descripcion;
 
   @OneToOne
   @JoinColumn(name = "id_user", nullable = false)

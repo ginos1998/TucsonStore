@@ -1,7 +1,6 @@
-package com.tucson.store.service.interfaces;
+package com.tucson.store.repository.interfaces;
 
 import com.tucson.store.entity.Marca;
-import com.tucson.store.entity.Product;
 import com.tucson.store.entity.Rubro;
 import com.tucson.store.entity.tmp.TmpProduct;
 import com.tucson.store.filters.BrandFilter;
@@ -10,12 +9,10 @@ import com.tucson.store.filters.ProductFilter;
 
 import java.util.List;
 
-public interface IntProductService {
-  List<TmpProduct> getProductsWithFilter(ProductFilter productFilter);
+public interface IntProductRepository {
+  List<TmpProduct> getProductsWithFilter(ProductFilter filter);
   void deleteProduct(int idProduct);
-  void saveProduct(Product product);
-
   List<Marca> getBrandsWithFilter(BrandFilter brandFilter);
-  List<Rubro> getIndustriesWithFilter(IndustryFilter industryFilter);
 
+  List<Rubro> getIndustriesWithWilter(IndustryFilter industryFilter);
 }

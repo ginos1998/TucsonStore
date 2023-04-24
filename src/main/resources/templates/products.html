@@ -1,7 +1,7 @@
- <!DOCTYPE html>
- <html lang="en"
-       xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -11,13 +11,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title th:text="#{admin_page}"></title>
+    <title th:text="#{productos}"></title>
 
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
@@ -29,129 +29,217 @@
 
 <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-        <!-- include sidebar -->
-        <div th:replace="~{common/common :: sidebar}"></div>
+    <!-- include sidebar -->
+    <div th:replace="~{common/common :: sidebar}"></div>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
-            <div id="content">
+        <!-- Main Content -->
+        <div id="content">
 
-                <!-- include Topbar -->
-                <th:block th:replace="~{common/common :: topbar}"></th:block>
+            <!-- include Topbar -->
+            <th:block th:replace="~{common/common :: topbar}"></th:block>
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800" th:text="#{productos}"></h1>
-                    <p class="mb-4" th:text="#{p_tabla_usuarios}"></p>
-                    <button type="button" class="btn btn-primary">Agregar</button>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary" th:text="#{lista_productos}"></h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="usersDataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th class="w-40px" th:text="#{id}">Id</th>
-                                            <th th:text="#{producto}"></th>
-                                            <th th:text="#{precio}"></th>
-                                            <th th:text="#{marca}"></th>
-                                            <th th:text="#{rubro}"></th>
-                                            <th th:text="#{subrubro}"></th>
-                                            <th th:text="#{ctd_disp}"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="product: ${products}">
-                                            <td class="w-10px">
-                                                <div class="dropdown mb-4">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button"
-                                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                        <i class="fas fa-fw fa-cog"></i>
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800" th:text="#{productos}"></h1>
+                <p class="mb-4" th:text="#{p_tabla_usuarios}"></p>
+                <button type="button" class="btn btn-primary" th:text="#{agregar}" data-toggle="modal"
+                        data-target="#addNewProduct"></button>
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary" th:text="#{lista_productos}"></h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="usersDataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="w-40px" th:text="#{id}">Id</th>
+                                    <th th:text="#{producto}"></th>
+                                    <th th:text="#{precio}"></th>
+                                    <th th:text="#{marca}"></th>
+                                    <th th:text="#{rubro}"></th>
+                                    <th th:text="#{subrubro}"></th>
+                                    <th th:text="#{ctd_disp}"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="product: ${products}">
+                                    <td class="w-10px">
+                                        <div class="dropdown mb-4">
+                                            <button class="btn btn-primary dropdown-toggle" type="button"
+                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-fw fa-cog"></i>
+                                            </button>
+                                            <div class="dropdown-menu animated--fade-in"
+                                                 aria-labelledby="dropdownMenuButton">
+                                                <!-- edit user button -->
+<!--                                                <a class="dropdown-item" th:text="#{editar}"-->
+<!--                                                   th:href="@{/adminPage/editUser(idUser=${product.user.idUser})}"></a>-->
+                                                <!-- delete user button -->
+                                                <a class="dropdown-item" data-toggle="modal"
+                                                   data-target="#confirmDeleteProduct"
+                                                   th:attr="data-target='#confirmDeleteProduct'+${product.idProduct}"
+                                                   th:text="#{eliminar}"></a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td th:text="${product.idProduct}"></td>
+                                    <td th:text="${product.producto}"></td>
+                                    <td th:text="${product.precio}"></td>
+                                    <td th:text="${product.marca}"></td>
+                                    <td th:text="${product.rubro}"></td>
+                                    <td th:text="${product.subrubro}"></td>
+                                    <td th:text="${product.ctdDisponible}"></td>
+<!--                                    Modal: on delete product-->
+                                    <div class="modal fade" th:id="confirmDeleteProduct+${product.idProduct}"
+                                         tabindex="-1" role="dialog" aria-labelledby="confirmDeleteProductLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="confirmDeleteProductLabel"
+                                                        th:text="#{eliminar_producto}"></h5>
+                                                    <button class="close" type="button" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
                                                     </button>
-<!--                                                    <div class="dropdown-menu animated&#45;&#45;fade-in"-->
-<!--                                                         aria-labelledby="dropdownMenuButton">-->
-<!--                                                        &lt;!&ndash; edit user button &ndash;&gt;-->
-<!--                                                        <a class="dropdown-item" th:text="#{editar}"-->
-<!--                                                           th:href="@{/adminPage/editUser(idUser=${product.user.idUser})}"></a>-->
-<!--                                                        &lt;!&ndash; delete user button &ndash;&gt;-->
-<!--                                                        <a class="dropdown-item" data-toggle="modal" data-target="#confirmDeleteUser"-->
-<!--                                                           th:attr="data-target='#confirmDeleteUser'+${product.user.idUser}"-->
-<!--                                                           th:text="#{eliminar}"></a>-->
-<!--                                                    </div>-->
                                                 </div>
-                                            </td>
-                                            <td th:text="${product.idProduct}"></td>
-                                            <td th:text="${product.producto}"></td>
-                                            <td th:text="${product.precio}"></td>
-                                            <td th:text="${product.marca}"></td>
-                                            <td th:text="${product.rubro}"></td>
-                                            <td th:text="${product.subrubro}"></td>
-                                            <td th:text="${product.ctdDisponible}"></td>
-                                            <!-- Modal: on delete user-->
-<!--                                            <div class="modal fade" th:id="confirmDeleteUser+${product.user.idUser}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteUserLabel"-->
-<!--                                                 aria-hidden="true">-->
-<!--                                                <div class="modal-dialog" role="document">-->
-<!--                                                    <div class="modal-content">-->
-<!--                                                        <div class="modal-header">-->
-<!--                                                            <h5 class="modal-title" id="confirmDeleteUserLabel" th:text="#{eliminar_usuario}"></h5>-->
-<!--                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">-->
-<!--                                                                <span aria-hidden="true">×</span>-->
-<!--                                                            </button>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="modal-body">-->
-<!--                                                            <h3 th:text="#{seguro_quieres_eliminar_a}"></h3>-->
-<!--                                                            <h3 th:text="' '+ ${product.producto} + '?'"></h3>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="modal-footer">-->
-<!--                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal" th:text="#{cancelar}"></button>-->
-<!--                                                            <a class="btn btn-primary" th:text="#{eliminar}"-->
-<!--                                                               th:href="@{/adminPage/deleteUser(idUser=${enabledSocio.idUser})}"></a>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                                <div class="modal-body">
+                                                    <h3 th:text="#{seguro_quieres_eliminar_a}"></h3>
+                                                    <h3 th:text="' '+ ${product.producto} + '?'"></h3>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                                            th:text="#{cancelar}"></button>
+                                                    <a class="btn btn-primary" th:text="#{eliminar}"
+                                                       th:href="@{/productsPage/deleteProduct(idProduct=${product.idProduct})}"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
                 </div>
-                <!-- /.container-fluid -->
 
+                <!-- *********************** MODALS *********************** -->
+
+                <div class="newProduct">
+                    <form th:action="@{/productsPage/addNewProduct}" method="post"
+                          th:object="${newProduct}">
+                        <div class="modal fade" id="addNewProduct" tabindex="-1" role="dialog"
+                             aria-labelledby="addNewProductModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addNewProductModal"
+                                            th:text="#{agrear_producto}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="form-group">
+                                            <label for="recipient-product" class="col-form-label"
+                                                   th:text="#{producto}"></label>
+                                            <input type="text" class="form-control" id="recipient-product"
+                                                   name="producto" th:field="*{producto}">
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-5">
+                                                <label for="marca" th:text="#{marca}"></label>
+                                                <select id="marca" class="form-control">
+                                                    <option selected>Elegir marca..</option>
+                                                    <option th:each="mark : ${listMarcas}" th:value="${mark.marca}"
+                                                            th:text="${mark.marca}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label for="rubro" th:text="#{rubro}"></label>
+                                                <select id="rubro" class="form-control">
+                                                    <option th:each="rub : ${listRubros}" th:value="${rub.rubro}"
+                                                            th:text="${rub.rubro}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-price" class="col-form-label"
+                                                   th:text="#{precio}"></label>
+                                            <input type="text" class="form-control" id="recipient-price" name="precio"
+                                                   th:field="*{precio}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-av-amount" class="col-form-label"
+                                                   th:text="#{ctd_disp}"></label>
+                                            <input type="text" class="form-control" id="recipient-av-amount" name="ctdDisponible"
+                                                   th:field="*{ctdDisponible}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="message-text" class="col-form-label" th:text="#{descripcion}"></label>
+                                            <textarea class="form-control" id="message-text" th:field="*{descripcion}"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                                th:text="#{cancelar}"></button>
+                                        <button type="submit" name="addNewProduct" class="btn btn-primary"
+                                                th:text="#{agregar}"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer th:replace="~{common/common :: footer}"></footer>
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="~{common/common :: footer}"></footer>
 
     </div>
-    <!-- End of Page Wrapper -->
+    <!-- End of Content Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <div th:replace="~{common/common :: scroll-top-button}"></div>
+</div>
+<!-- End of Page Wrapper -->
 
-    <!-- Logout Modal-->
-    <div th:replace="~{common/common :: logout-modal}"></div>
+<!-- Scroll to Top Button-->
+<div th:replace="~{common/common :: scroll-top-button}"></div>
 
-    <!-- scripts-->
-    <div th:replace="~{common/common :: scripts}"></div>
+<!-- Logout Modal-->
+<div th:replace="~{common/common :: logout-modal}"></div>
+
+<!-- scripts-->
+<div th:replace="~{common/common :: scripts}"></div>
+<script>
+    $('#addNewProduct').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + recipient)
+        modal.find('.modal-body input').val(recipient)
+    })
+</script>
 
 </body>
 

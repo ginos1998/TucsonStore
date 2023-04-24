@@ -23,7 +23,8 @@ BEGIN
                          where r.id_user = an_id_user
                            and r.id_rubro = p.id_rubro)) as subrubro,
            p.precio                                      as precio,
-           p.ctd_diponible                               as ctd_disponible
+           p.ctd_diponible                               as ctd_disponible,
+           p.descripcion                                 as descripcion
     from producto p
     where p.id_user = an_id_user
       AND p.habilitado = 'S';

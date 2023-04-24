@@ -18,5 +18,5 @@ public class TmpProduct {
   private double precio;
   @Column(name = "ctd_disponible")
   private int ctdDisponible;
-
+  private String descripcion;
 }
