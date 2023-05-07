@@ -84,13 +84,15 @@
                                             <div class="dropdown-menu animated--fade-in"
                                                  aria-labelledby="dropdownMenuButton">
                                                 <!-- edit user button -->
-<!--                                                <a class="dropdown-item" th:text="#{editar}"-->
-<!--                                                   th:href="@{/adminPage/editUser(idUser=${product.user.idUser})}"></a>-->
+                                                <a class="dropdown-item" th:text="#{editar}"
+                                                   data-toggle="modal"
+                                                   th:attr="data-target='#editProductModal'+${product.idProduct}">
+                                                </a>
                                                 <!-- delete user button -->
                                                 <a class="dropdown-item" data-toggle="modal"
-                                                   data-target="#confirmDeleteProduct"
-                                                   th:attr="data-target='#confirmDeleteProduct'+${product.idProduct}"
-                                                   th:text="#{eliminar}"></a>
+                                                   data-target="#confirmDeleteProduct" th:text="#{eliminar}"
+                                                   th:attr="data-target='#confirmDeleteProduct'+${product.idProduct}">
+                                                </a>
                                             </div>
                                         </div>
                                     </td>
@@ -101,7 +103,7 @@
                                     <td th:text="${product.rubro}"></td>
                                     <td th:text="${product.subrubro}"></td>
                                     <td th:text="${product.ctdDisponible}"></td>
-<!--                                    Modal: on delete product-->
+                                    <!--                                    Modal: on delete product-->
                                     <div class="modal fade" th:id="confirmDeleteProduct+${product.idProduct}"
                                          tabindex="-1" role="dialog" aria-labelledby="confirmDeleteProductLabel"
                                          aria-hidden="true">
@@ -128,6 +130,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </tr>
                                 </tbody>
                             </table>
@@ -136,7 +139,72 @@
                 </div>
 
                 <!-- *********************** MODALS *********************** -->
-
+                <!--                    modal edit user                     -->
+                <div th:each="prod : ${products}">
+                    <div class="modal fade" th:id="'editProductModal'+${prod.idProduct}" tabindex="-1" role="dialog"
+                         aria-labelledby="editProductModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editProductModalLabel">Editar producto</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/productsPage/editProduct}" method="post" th:object="${editedProduct}">
+                                        <div class="form-group">
+                                            <label for="product">Producto</label>
+                                            <input type="text" class="form-control" id="product" name="product"
+                                                   th:value="${prod.producto}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="price">Precio</label>
+                                            <input type="text" class="form-control" id="price" name="price"
+                                                   th:value="${prod.precio}">
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-5">
+                                                <label for="edited-marca" th:text="#{marca}"></label>
+                                                <select id="edited-marca" class="form-control">
+                                                    <option selected>Elegir marca..</option>
+                                                    <option th:each="mark : ${listMarcas}" th:value="${mark.marca}"
+                                                            th:text="${mark.marca}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label for="edited-rubro" th:text="#{rubro}"></label>
+                                                <select id="edited-rubro" class="form-control">
+                                                    <option th:each="rub : ${listRubros}" th:value="${rub.rubro}"
+                                                            th:text="${rub.rubro}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="edited-av-amount" class="col-form-label"
+                                                   th:text="#{ctd_disp}"></label>
+                                            <input type="text" class="form-control" id="edited-av-amount"
+                                                   name="ctdDisponible" th:value="${prod.ctdDisponible}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="edited-message-text" class="col-form-label"
+                                                   th:text="#{descripcion}"></label>
+                                            <textarea class="form-control" id="edited-message-text" th:value="${prod.descripcion}"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                            th:text="#{cancelar}"></button>
+                                    <button type="submit" class="btn btn-primary" th:text="#{guardar}"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--                add newProduct modal            -->
                 <div class="newProduct">
                     <form th:action="@{/productsPage/addNewProduct}" method="post"
                           th:object="${newProduct}">
@@ -187,12 +255,15 @@
                                         <div class="form-group">
                                             <label for="recipient-av-amount" class="col-form-label"
                                                    th:text="#{ctd_disp}"></label>
-                                            <input type="text" class="form-control" id="recipient-av-amount" name="ctdDisponible"
+                                            <input type="text" class="form-control" id="recipient-av-amount"
+                                                   name="ctdDisponible"
                                                    th:field="*{ctdDisponible}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="message-text" class="col-form-label" th:text="#{descripcion}"></label>
-                                            <textarea class="form-control" id="message-text" th:field="*{descripcion}"></textarea>
+                                            <label for="message-text" class="col-form-label"
+                                                   th:text="#{descripcion}"></label>
+                                            <textarea class="form-control" id="message-text"
+                                                      th:field="*{descripcion}"></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

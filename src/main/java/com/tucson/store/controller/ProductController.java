@@ -8,8 +8,6 @@ import com.tucson.store.entity.User;
 import com.tucson.store.entity.tmp.TmpProduct;
 import com.tucson.store.filters.BrandFilter;
 import com.tucson.store.filters.IndustryFilter;
-import com.tucson.store.filters.ProductFilter;
-import com.tucson.store.repository.RepositoryFactory;
 import com.tucson.store.utils.Constants;
 import com.tucson.store.utils.UserSession;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +24,7 @@ public class ProductController {
   private List<TmpProduct> listProducts;
   private List<Marca> listMarcas;
   private List<Rubro> listRubros;
+  private String thisPage = "redirect:/productsPage";
 
   @GetMapping("/productsPage")
   public String productsPage(Model model) {
@@ -37,7 +36,7 @@ public class ProductController {
   public String addNewProduct(@ModelAttribute("newProduct") TmpProduct newProduct) {
     Product product = mapNewProduct(newProduct);
     ProductDelegator.saveProduct(product);
-    return "redirect:/productsPage";
+    return thisPage;
   }
 
   private Product mapNewProduct(TmpProduct aux) {
@@ -78,7 +77,14 @@ public class ProductController {
   @GetMapping("/productsPage/deleteProduct")
   public String deleteProduct(TmpProduct deletedProduct) {
     ProductDelegator.deleteProduct(deletedProduct.getIdProduct());
-    return "redirect:/productsPage";
+    return thisPage;
+  }
+
+  @PostMapping("/productsPage/editProduct")
+  public String editProduct(TmpProduct editedProduct) {
+    Product product = mapNewProduct(editedProduct);
+    ProductDelegator.saveProduct(product);
+    return thisPage;
   }
 
   private void initController(Model model){
@@ -117,6 +123,7 @@ public class ProductController {
 
   private void initModels(Model model) {
     model.addAttribute("newProduct", new TmpProduct());
+    model.addAttribute("editedProduct", new TmpProduct());
     model.addAttribute("products", listProducts);
     model.addAttribute("listMarcas", listMarcas);
     model.addAttribute("listRubros", listRubros);
