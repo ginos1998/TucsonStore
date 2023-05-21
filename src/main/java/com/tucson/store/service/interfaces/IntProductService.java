@@ -3,6 +3,7 @@ package com.tucson.store.service.interfaces;
 import com.tucson.store.entity.Marca;
 import com.tucson.store.entity.Product;
 import com.tucson.store.entity.Rubro;
+import com.tucson.store.entity.SubRubro;
 import com.tucson.store.entity.tmp.TmpProduct;
 import com.tucson.store.filters.BrandFilter;
 import com.tucson.store.filters.IndustryFilter;
@@ -17,5 +18,7 @@ public interface IntProductService {
 
   List<Marca> getBrandsWithFilter(BrandFilter brandFilter);
   List<Rubro> getIndustriesWithFilter(IndustryFilter industryFilter);
+
+  List<SubRubro> getSubIndustriesWithFilter(IndustryFilter industryFilter);
 
 }

@@ -1,10 +1,7 @@
 package com.tucson.store.controller;
 
 import com.tucson.store.delegators.ProductDelegator;
-import com.tucson.store.entity.Marca;
-import com.tucson.store.entity.Product;
-import com.tucson.store.entity.Rubro;
-import com.tucson.store.entity.User;
+import com.tucson.store.entity.*;
 import com.tucson.store.entity.tmp.TmpProduct;
 import com.tucson.store.filters.BrandFilter;
 import com.tucson.store.filters.IndustryFilter;
@@ -24,6 +21,7 @@ public class ProductController {
   private List<TmpProduct> listProducts;
   private List<Marca> listMarcas;
   private List<Rubro> listRubros;
+  private List<SubRubro> listSubRubro;
   private String thisPage = "redirect:/productsPage";
 
   @GetMapping("/productsPage")
@@ -41,16 +39,18 @@ public class ProductController {
 
   private Product mapNewProduct(TmpProduct aux) {
     Product prod = new Product();
+    // default values
     prod.setIdProduct(aux.getIdProduct());
     prod.setUser(currentUser);
+    prod.setHabilitado(Constants.CHAR_S);
+    // created/edited values
     prod.setProducto(aux.getProducto());
     prod.setCtdDisponible(aux.getCtdDisponible());
     prod.setPrecio(aux.getPrecio());
-    prod.setIdSubrubro(1);
     prod.setDescripcion(aux.getDescripcion());
 
-    if (aux.getMarca() == null) {
-      prod.setIdMarca(1);
+    if (aux.getMarca() == null || aux.getMarca().equals(Constants.STRING_ELEGIR)) {
+      prod.setIdMarca(1); // should throw an exception
     } else {
       for (Marca m: listMarcas) {
         if (m.getMarca().equals(aux.getMarca())) {
@@ -60,12 +60,23 @@ public class ProductController {
       }
     }
 
-    if (aux.getRubro() == null) {
-      prod.setIdRubro(1);
+    if (aux.getRubro() == null || aux.getRubro().equals(Constants.STRING_ELEGIR)) {
+      prod.setIdRubro(1); // should throw an exception
     } else {
       for (Rubro r: listRubros) {
         if (r.getRubro().equals(aux.getRubro())) {
           prod.setIdRubro(r.getIdRubro());
+          break;
+        }
+      }
+    }
+
+    if (aux.getSubrubro() == null || aux.getSubrubro().equals(Constants.STRING_ELEGIR)) {
+      prod.setIdSubrubro(1); // should throw an exception
+    } else {
+      for (SubRubro r: listSubRubro) {
+        if (r.getSubrubro().equals(aux.getSubrubro())) {
+          prod.setIdSubrubro(r.getIdSubRubro());
           break;
         }
       }
@@ -92,6 +103,7 @@ public class ProductController {
     initListProducts();
     initListMarcas();
     initListRubros();
+    initListSubRubros();
     initModels(model);
   }
 
@@ -121,12 +133,22 @@ public class ProductController {
     }
   }
 
+  private void initListSubRubros() {
+    try {
+      IndustryFilter filter = new IndustryFilter(listRubros, Constants.CHAR_S);
+      listSubRubro = ProductDelegator.getSubIndustriesWithFilter(filter);
+    } catch (Exception e) {
+      log.info(e.getMessage());
+    }
+  }
+
   private void initModels(Model model) {
     model.addAttribute("newProduct", new TmpProduct());
     model.addAttribute("editedProduct", new TmpProduct());
     model.addAttribute("products", listProducts);
     model.addAttribute("listMarcas", listMarcas);
     model.addAttribute("listRubros", listRubros);
+    model.addAttribute("listSubRubros", listSubRubro);
   }
 
 }

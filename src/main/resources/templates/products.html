@@ -154,51 +154,58 @@
                                 <div class="modal-body">
                                     <form th:action="@{/productsPage/editProduct}" method="post" th:object="${editedProduct}">
                                         <div class="form-group">
-                                            <label for="product">Producto</label>
-                                            <input type="text" class="form-control" id="product" name="product"
-                                                   th:value="${prod.producto}">
+                                            <label for="idProductEdited"></label>
+                                            <input type="hidden" class="form-control" id="idProductEdited" name="idProduct" th:value="${prod.idProduct}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="price">Precio</label>
-                                            <input type="text" class="form-control" id="price" name="price"
-                                                   th:value="${prod.precio}">
+                                            <label for="editedProduct" class="col-form-label" th:text="#{producto}"></label>
+                                            <input type="text" class="form-control" id="editedProduct" name="producto" th:value="${prod.producto}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editedPrice" class="col-form-label" th:text="#{precio}"></label>
+                                            <input type="text" class="form-control" id="editedPrice" name="precio" th:value="${prod.precio}">
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-5">
                                                 <label for="edited-marca" th:text="#{marca}"></label>
-                                                <select id="edited-marca" class="form-control">
-                                                    <option selected>Elegir marca..</option>
-                                                    <option th:each="mark : ${listMarcas}" th:value="${mark.marca}"
-                                                            th:text="${mark.marca}">
+                                                <select id="edited-marca" class="form-control" name="marca">
+                                                    <option selected>Elegir..</option>
+                                                    <option th:each="mark : ${listMarcas}" th:value="${mark.marca}" th:text="${mark.marca}">
                                                     </option>
                                                 </select>
                                             </div>
                                             <div class="col-md-5">
                                                 <label for="edited-rubro" th:text="#{rubro}"></label>
-                                                <select id="edited-rubro" class="form-control">
-                                                    <option th:each="rub : ${listRubros}" th:value="${rub.rubro}"
-                                                            th:text="${rub.rubro}">
+                                                <select id="edited-rubro" class="form-control" name="rubro">
+                                                    <option selected>Elegir..</option>
+                                                    <option th:each="rub : ${listRubros}" th:value="${rub.rubro}" th:text="${rub.rubro}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-5">
+                                                <label for="edited-av-amount" class="col-form-label" th:text="#{ctd_disp}"></label>
+                                                <input type="text" class="form-control" id="edited-av-amount" name="ctdDisponible" th:value="${prod.ctdDisponible}">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label for="edited-subrubro" th:text="#{subrubro}"></label>
+                                                <select id="edited-subrubro" class="form-control" name="subrubro" th:if="${prod.rubro != null}">
+                                                    <option selected>Elegir..</option>
+                                                    <option th:each="subrub : ${listSubRubros}" th:if="${prod.rubro == subrub.rubro.getRubro()}" th:value="${subrub.subrubro}" th:text="${subrub.subrubro}">
                                                     </option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="edited-av-amount" class="col-form-label"
-                                                   th:text="#{ctd_disp}"></label>
-                                            <input type="text" class="form-control" id="edited-av-amount"
-                                                   name="ctdDisponible" th:value="${prod.ctdDisponible}">
+                                            <label for="edited-message-text" class="col-form-label" th:text="#{descripcion}"></label>
+                                            <textarea class="form-control" id="edited-message-text" name="descripcion" th:value="${prod.descripcion}"></textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="edited-message-text" class="col-form-label"
-                                                   th:text="#{descripcion}"></label>
-                                            <textarea class="form-control" id="edited-message-text" th:value="${prod.descripcion}"></textarea>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{cancelar}"></button>
+                                            <button type="submit" name="editProduct" class="btn btn-primary" th:text="#{guardar}"></button>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                            th:text="#{cancelar}"></button>
-                                    <button type="submit" class="btn btn-primary" th:text="#{guardar}"></button>
                                 </div>
                             </div>
                         </div>
@@ -267,10 +274,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                                th:text="#{cancelar}"></button>
-                                        <button type="submit" name="addNewProduct" class="btn btn-primary"
-                                                th:text="#{agregar}"></button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{cancelar}"></button>
+                                        <button type="submit" name="addNewProduct" class="btn btn-primary" th:text="#{agregar}"></button>
                                     </div>
                                 </div>
                             </div>

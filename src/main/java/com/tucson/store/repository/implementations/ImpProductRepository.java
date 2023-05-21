@@ -3,6 +3,7 @@ package com.tucson.store.repository.implementations;
 import com.tucson.store.entity.Marca;
 import com.tucson.store.entity.Product;
 import com.tucson.store.entity.Rubro;
+import com.tucson.store.entity.SubRubro;
 import com.tucson.store.entity.tmp.TmpProduct;
 import com.tucson.store.filters.BrandFilter;
 import com.tucson.store.filters.IndustryFilter;
@@ -114,5 +115,32 @@ public class ImpProductRepository implements IntProductRepository {
     return query.getResultList();
   }
 
+  @Override
+  public List<SubRubro> getSubIndustriesWithFilter(IndustryFilter filter) {
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<SubRubro> criteriaQuery = criteriaBuilder.createQuery(SubRubro.class);
+    Root<SubRubro> root = criteriaQuery.from(SubRubro.class);
+    List<SubRubro> listSubRubro = new ArrayList<>();
 
+    if (filter.getListRubros() != null && !filter.getListRubros().isEmpty()) {
+      for (Rubro rubro: filter.getListRubros()) {
+        predicates = new ArrayList<>();
+
+        if (rubro.getIdRubro() > 0) {
+          predicates.add(criteriaBuilder.equal(root.get("rubro"), rubro));
+        }
+        if (filter.getEnabled() != null) {
+          predicates.add(criteriaBuilder.equal(root.get("habilitado"), filter.getEnabled()));
+        }
+
+        Predicate finalPredicate = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+
+        criteriaQuery.where(finalPredicate);
+        TypedQuery<SubRubro> query = entityManager.createQuery(criteriaQuery);
+        listSubRubro.addAll(query.getResultList());
+      }
+    }
+
+    return listSubRubro;
+  }
 }

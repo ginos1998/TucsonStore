@@ -3,6 +3,7 @@ package com.tucson.store.delegators;
 import com.tucson.store.entity.Marca;
 import com.tucson.store.entity.Product;
 import com.tucson.store.entity.Rubro;
+import com.tucson.store.entity.SubRubro;
 import com.tucson.store.entity.tmp.TmpProduct;
 import com.tucson.store.filters.BrandFilter;
 import com.tucson.store.filters.IndustryFilter;
@@ -40,5 +41,9 @@ public class ProductDelegator {
 
   public static List<Rubro> getIndustriesWithFilter(IndustryFilter industryFilter) {
     return ServiceFactory.getIntProductService().getIndustriesWithFilter(industryFilter);
+  }
+
+  public static List<SubRubro> getSubIndustriesWithFilter(IndustryFilter industryFilter) {
+    return ServiceFactory.getIntProductService().getSubIndustriesWithFilter(industryFilter);
   }
 }

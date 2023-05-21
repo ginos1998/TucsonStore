@@ -2,6 +2,7 @@ package com.tucson.store.repository.interfaces;
 
 import com.tucson.store.entity.Marca;
 import com.tucson.store.entity.Rubro;
+import com.tucson.store.entity.SubRubro;
 import com.tucson.store.entity.tmp.TmpProduct;
 import com.tucson.store.filters.BrandFilter;
 import com.tucson.store.filters.IndustryFilter;
@@ -15,4 +16,6 @@ public interface IntProductRepository {
   List<Marca> getBrandsWithFilter(BrandFilter brandFilter);
 
   List<Rubro> getIndustriesWithWilter(IndustryFilter industryFilter);
+
+  List<SubRubro> getSubIndustriesWithFilter(IndustryFilter industryFilter);
 }
